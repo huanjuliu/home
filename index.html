@@ -55,12 +55,116 @@
             font-size: 1.8rem;
             font-weight: 500;
         }
+        /* 搜索区域 */
+        .search-section {
+            background-color: white;
+            padding: 2rem 3rem 1rem 3rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+        }
+        .search-container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+        .search-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        .search-category {
+            background: #f1f3f5;
+            border-radius: var(--radius);
+            padding: 1.5rem;
+        }
+        .search-category h3 {
+            margin-top: 0;
+            margin-bottom: 1rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .search-form {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+        .search-input-group {
+            display: flex;
+            flex-wrap: wrap; /* 允许换行 */
+            gap: 0.5rem; /* 按钮和输入框之间的间距 */
+        }
+        .search-input-wrapper {
+            flex: 1;
+            min-width: 0; /* 防止 flex 项目溢出 */
+            display: flex;
+        }
+        .search-input {
+            flex: 1;
+            padding: 0.8rem 1rem;
+            border: 1px solid #ced4da;
+            border-radius: 6px 0 0 6px;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+            min-width: 0; /* 防止输入框溢出 */
+        }
+        .search-input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 0.2rem rgba(245, 166, 35, 0.25);
+        }
+        /* 隐藏的参数输入框 */
+        .hidden-param {
+            display: none;
+        }
+        .search-engine-select {
+            padding: 0.8rem 1rem;
+            border: 1px solid #ced4da;
+            border-left: none;
+            border-radius: 0 6px 6px 0;
+            background-color: white;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        .search-button {
+            padding: 0.8rem 1.2rem;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.2s;
+            white-space: nowrap; /* 防止按钮文字换行 */
+        }
+        .search-button:hover {
+            background-color: var(--secondary);
+        }
+        .search-engine-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+        .search-engine-link {
+            text-decoration: none;
+            color: var(--secondary);
+            font-size: 0.85rem;
+            padding: 0.3rem 0.6rem;
+            background-color: #e9ecef;
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+        .search-engine-link:hover {
+            background-color: var(--secondary);
+            color: white;
+        }
         /* 主内容区 */
         .main-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
             gap: 2rem;
-            padding: 3rem;
+            padding: 0 3rem 3rem 3rem; /* 移除了顶部 padding */
             max-width: 1600px;
             margin: 0 auto;
         }
@@ -140,14 +244,15 @@
         }
         /* 响应式优化 */
         @media (max-width: 1200px) {
-            .main-grid {
-                grid-template-columns: repeat(2, 1fr);
+            .main-grid, .search-section {
                 padding: 2rem;
+            }
+            .search-grid {
+                grid-template-columns: 1fr; /* 在小屏幕上堆叠 */
             }
         }
         @media (max-width: 768px) {
-            .main-grid {
-                grid-template-columns: 1fr;
+            .main-grid, .search-section {
                 padding: 1.5rem;
             }
             .navbar {
@@ -155,6 +260,25 @@
             }
             .nav-container h1 {
                 font-size: 1.5rem;
+            }
+             .search-input-group {
+                flex-direction: column; /* 在很小的屏幕上垂直排列 */
+            }
+            .search-input-wrapper {
+                width: 100%;
+            }
+            .search-input {
+                 border-radius: 6px;
+                 margin-bottom: 0.5rem;
+            }
+            .search-engine-select {
+                border-radius: 6px;
+                border-left: 1px solid #ced4da;
+                margin-bottom: 0.5rem;
+            }
+            .search-button {
+                border-radius: 6px;
+                width: 100%;
             }
         }
         footer {
@@ -293,6 +417,104 @@
             <h1>🔬 LHJ 学术导航系统</h1>
         </div>
     </nav>
+
+    <!-- 新增搜索区域 -->
+    <section class="search-section">
+        <div class="search-container">
+            <div class="search-grid">
+                <!-- 通用搜索 -->
+                <div class="search-category">
+                    <h3>🌐 通用搜索</h3>
+                    <form class="search-form" target="_blank">
+                        <!-- 隐藏的 action 和参数名输入框 -->
+                        <input type="hidden" class="search-action" value="https://www.google.com/search">
+                        <input type="hidden" class="search-param" value="q">
+                        <div class="search-input-group">
+                            <div class="search-input-wrapper">
+                                <input type="text" class="search-input" placeholder="输入搜索关键词..." required>
+                            </div>
+                            <select class="search-engine-select">
+                                <option value="https://www.google.com/search|q">Google</option>
+                                <option value="https://www.bing.com/search|q">Bing</option>
+                                <option value="https://www.baidu.com/s|wd">百度</option>
+                            </select>
+                            <button type="submit" class="search-button">搜索</button>
+                        </div>
+                         <div class="search-engine-links">
+                            <a href="https://www.google.com" class="search-engine-link" target="_blank">Google</a>
+                            <a href="https://www.bing.com" class="search-engine-link" target="_blank">Bing</a>
+                            <a href="https://www.baidu.com" class="search-engine-link" target="_blank">百度</a>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- 学术搜索 -->
+                <div class="search-category">
+                    <h3>🎓 学术搜索</h3>
+                    <form class="search-form" target="_blank">
+                        <!-- 隐藏的 action 和参数名输入框 -->
+                        <input type="hidden" class="search-action" value="https://scholar.google.com/scholar">
+                        <input type="hidden" class="search-param" value="q">
+                        <div class="search-input-group">
+                            <div class="search-input-wrapper">
+                                <input type="text" class="search-input" placeholder="输入搜索关键词..." required>
+                            </div>
+                            <select class="search-engine-select">
+                                <option value="https://scholar.google.com/scholar|q">谷歌学术</option>
+                                <option value="https://pubmed.ncbi.nlm.nih.gov/|term">PubMed</option>
+                                <option value="https://academic.microsoft.com/search|q">必应学术</option>
+                                <option value="https://xueshu.baidu.com/s?|wd">百度学术</option>
+                                <option value="https://www.cnki.net/|kw">知网</option>
+                                <option value="https://www.wanfangdata.com.cn/search/searchList.htm?|searchWord">万方</option>
+                            </select>
+                            <button type="submit" class="search-button">搜索</button>
+                        </div>
+                        <div class="search-engine-links">
+                            <a href="https://scholar.google.com" class="search-engine-link" target="_blank">谷歌学术</a>
+                            <a href="https://pubmed.ncbi.nlm.nih.gov/" class="search-engine-link" target="_blank">PubMed</a>
+                            <a href="https://academic.microsoft.com/" class="search-engine-link" target="_blank">必应学术</a>
+                            <a href="https://xueshu.baidu.com/" class="search-engine-link" target="_blank">百度学术</a>
+                            <a href="https://www.cnki.net/" class="search-engine-link" target="_blank">知网</a>
+                            <a href="https://www.wanfangdata.com.cn/" class="search-engine-link" target="_blank">万方</a>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- AI 搜索 -->
+                <div class="search-category">
+                    <h3>🤖 AI 搜索</h3>
+                    <form class="search-form" target="_blank">
+                        <!-- 隐藏的 action 和参数名输入框 -->
+                        <input type="hidden" class="search-action" value="https://metaso.cn/search">
+                        <input type="hidden" class="search-param" value="q">
+                        <div class="search-input-group">
+                            <div class="search-input-wrapper">
+                                <input type="text" class="search-input" placeholder="输入搜索关键词..." required>
+                            </div>
+                            <select class="search-engine-select">
+                                <option value="https://metaso.cn/search|q">秘塔搜索</option>
+                                <option value="https://quark.sm.cn/s?|q">夸克</option>
+                                <option value="https://perplexity.ai/search?|q">Perplexity</option>
+                                <option value="https://scispace.com/search?|q">SciSpace</option>
+                                <option value="https://www.scite.ai/search?|q">Scite.ai</option>
+                                <!-- 注意：以下链接可能需要根据实际URL结构调整 -->
+                                <option value="https://www.phind.com/search?|q">Phind</option>
+                            </select>
+                            <button type="submit" class="search-button">搜索</button>
+                        </div>
+                        <div class="search-engine-links">
+                            <a href="https://metaso.cn/" class="search-engine-link" target="_blank">秘塔搜索</a>
+                            <a href="https://quark.sm.cn/" class="search-engine-link" target="_blank">夸克</a>
+                            <a href="https://perplexity.ai/" class="search-engine-link" target="_blank">Perplexity</a>
+                            <a href="https://scispace.com/" class="search-engine-link" target="_blank">SciSpace</a>
+                             <a href="https://www.scite.ai/" class="search-engine-link" target="_blank">Scite.ai</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <main class="main-grid">
         <!-- AI 工具模块 -->
         <div class="category-card">
@@ -434,8 +656,42 @@
         </div>
     </main>
     <footer>
-        <p>&copy; 2023 LHJ 学术导航系统. 为科研探索之路提供指引。</p>
+        <p>&copy; 2025 LHJ 学术导航系统. 为科研探索之路提供指引。</p>
     </footer>
 
+    <script>
+        // 为所有搜索表单添加事件监听器
+        document.querySelectorAll('.search-form').forEach(form => {
+            const actionInput = form.querySelector('.search-action');
+            const paramInput = form.querySelector('.search-param');
+            const select = form.querySelector('.search-engine-select');
+            const input = form.querySelector('.search-input');
+
+            // 当选择框改变时，更新隐藏的 action 和 param 输入框
+            select.addEventListener('change', function() {
+                const [action, param] = this.value.split('|');
+                actionInput.value = action;
+                paramInput.value = param;
+            });
+
+            // 当表单提交时，动态构建 URL 并提交
+            form.addEventListener('submit', function(e) {
+                e.preventDefault(); // 阻止默认提交
+
+                const action = actionInput.value;
+                const param = paramInput.value;
+                const query = encodeURIComponent(input.value.trim());
+
+                if (query) {
+                    // 构建完整的 URL
+                    const url = `${action}?${param}=${query}`;
+                    // 在新窗口打开
+                    window.open(url, '_blank');
+                } else {
+                    alert('请输入搜索关键词');
+                }
+            });
+        });
+    </script>
 </body>
 </html>
