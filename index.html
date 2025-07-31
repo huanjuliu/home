@@ -172,23 +172,162 @@
         footer a:hover {
             text-decoration: underline;
         }
+
+        /* 学术成果浮动按钮容器 */
+        .academic-profile-container {
+            position: fixed;
+            top: 100px; /* 距离顶部距离 */
+            right: 30px; /* 距离右边距离 */
+            z-index: 1001; /* 确保在最上层 */
+        }
+
+        /* 主按钮样式 */
+        #academic-profile-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), #FFD700); /* 橙色到金色渐变 */
+            color: white;
+            border: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            font-size: 24px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: var(--transition);
+            animation: pulse 2s infinite; /* 添加脉冲动画 */
+        }
+
+        #academic-profile-btn:hover {
+            transform: scale(1.1) rotate(10deg); /* 悬停时放大并轻微旋转 */
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            animation: none; /* 悬停时停止动画 */
+        }
+
+        /* 脉冲动画 */
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(245, 166, 35, 0.4);
+            }
+            70% {
+                box-shadow: 0 0 0 15px rgba(245, 166, 35, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(245, 166, 35, 0);
+            }
+        }
+
+        /* 隐藏的链接容器 */
+        .profile-links {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            /* 初始状态隐藏 */
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transform: translate(-50%, -50%) scale(0.8);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column; /* 垂直排列 */
+            gap: 15px; /* 图标间距 */
+            background-color: rgba(255, 255, 255, 0.95); /* 半透明白色背景 */
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+        }
+
+        /* 当父容器悬停时，显示链接 */
+        .academic-profile-container:hover .profile-links {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        /* 链接图标样式 */
+        .profile-link {
+            display: block;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            color: white;
+            font-size: 14px; /* 调整字体大小 */
+            font-weight: bold; /* 加粗文字 */
+            transition: var(--transition);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .profile-link:hover {
+            transform: scale(1.2);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        /* 为不同链接设置不同背景色 */
+        .profile-link.orcid { background-color: #A6CE39; } /* ORCID 绿色 */
+        .profile-link.researchgate { background-color: #337ab7; } /* ResearchGate 蓝色 */
+        .profile-link.scholar { background-color: #4285F4; } /* Google Scholar 蓝色 */
+        .profile-link.pubmed { background-color: #3265a8; } /* PubMed 蓝色 */
+
     </style>
 </head>
 <body>
+    <!-- 学术成果浮动按钮及链接 -->
+    <div class="academic-profile-container">
+        <button id="academic-profile-btn" title="学术成果">🏆</button>
+        <div class="profile-links">
+            <a href="https://orcid.org/0000-0002-3370-4296" class="profile-link orcid" target="_blank" title="ORCID Profile">O</a>
+            <a href="https://www.researchgate.net/profile/Huanju-Liu?ev=hdr_xprf" class="profile-link researchgate" target="_blank" title="ResearchGate Profile">RG</a>
+            <a href="https://scholar.google.com/citations?hl=en&user=OtZMZmYAAAAJ" class="profile-link scholar" target="_blank" title="Google Scholar">GS</a>
+            <a href="https://pubmed.ncbi.nlm.nih.gov/?term=%28huanju+liu%29+AND+%28%28zhejiang+university%29OR+%28Naval+Medical+University%29%29&sort=date&size=200" class="profile-link pubmed" target="_blank" title="PubMed Publications">PM</a>
+        </div>
+    </div>
+
     <nav class="navbar">
         <div class="nav-container">
             <h1>🔬 LHJ 学术导航系统</h1>
         </div>
     </nav>
     <main class="main-grid">
-        <!-- 学术成果模块 -->
+        <!-- AI 工具模块 -->
         <div class="category-card">
-            <h2 class="category-header">🏆 学术成果</h2>
+            <h2 class="category-header">🤖 AI 工具</h2>
             <div class="link-group">
-                <a href="https://orcid.org/0000-0002-3370-4296" class="link-item" target="_blank">ORCID Profile</a>
-                <a href="https://www.researchgate.net/profile/Huanju-Liu?ev=hdr_xprf" class="link-item" target="_blank">ResearchGate Profile</a>
-                <a href="https://scholar.google.com/citations?hl=en&user=OtZMZmYAAAAJ" class="link-item" target="_blank">Google Scholar</a>
-                <a href="https://pubmed.ncbi.nlm.nih.gov/?term=%28huanju+liu%29+AND+%28%28zhejiang+university%29OR+%28Naval+Medical+University%29%29&sort=date&size=200" class="link-item" target="_blank">PubMed Publications</a>
+                <a href="https://copilot.microsoft.com/" class="link-item" target="_blank">Microsoft Copilot</a>
+                <a href="https://gemini.google.com/" class="link-item" target="_blank">Google Gemini</a>
+                <a href="https://chatgpt.com/" class="link-item" target="_blank">ChatGPT</a>
+                <a href="https://chat.qwen.ai/" class="link-item" target="_blank">通义千问</a>
+                <a href="https://platform.deepseek.com/usage" class="link-item" target="_blank">DeepSeek</a>
+                <a href="https://claude.ai/" class="link-item" target="_blank">Claude</a>
+                <a href="https://chatglm.cn/main/alltoolsdetail?lang=zh" class="link-item" target="_blank">智谱清言</a>
+                <a href="https://www.perplexity.ai/" class="link-item" target="_blank">Perplexity AI</a>
+                <a href="https://scispace.com/" class="link-item" target="_blank">SciSpace</a>
+                <a href="https://www.scite.ai/" class="link-item" target="_blank">Scite.ai</a>
+                <a href="https://www.researchrabbit.ai/" class="link-item" target="_blank">Research Rabbit</a>
+                <a href="https://elicit.com/" class="link-item" target="_blank">Elicit</a>
+                <a href="https://notebooklm.google/" class="link-item" target="_blank">Google NotebookLM</a>
+                <a href="https://typeset.io/" class="link-item" target="_blank">Typeset.io</a>
+                <a href="https://app.wordtune.com/" class="link-item" target="_blank">Wordtune</a>
+                <a href="https://storm.genie.stanford.edu/" class="link-item" target="_blank">Stanford Storm</a>
+                <a href="https://metaso.cn/" class="link-item" target="_blank">秘塔搜索</a>
+                <a href="https://www.wearecurie.ai/" class="link-item" target="_blank">Curie AI</a>
+                <a href="https://www.latentlabs.com/latent-x/" class="link-item" target="_blank">Latent Labs</a>
+                <a href="https://www.drawio.com/" class="link-item" target="_blank">draw.io</a>
+                <a href="https://www.kuaibian.net/panel/create" class="link-item" target="_blank">快编</a>
+                <a href="https://huanjuliu.github.io/web/#services" class="link-item" target="_blank">LHJ's web</a>
+                <a href="https://sider.ai/wisebase/deep-research" class="link-item" target="_blank">Sider AI</a>
+                <a href="https://chat.zju.edu.cn/" class="link-item" target="_blank">浙大星海 Chat</a>
+                <a href="https://so.n.cn/" class="link-item" target="_blank">知网学术搜索</a>
+                <a href="https://www.theneuron.ai/top-tools" class="link-item" target="_blank">The Neuron AI Tools</a>
+                <a href="https://i.uecloud.com/" class="link-item" target="_blank">UECloudAI</a>
+                <a href="https://www.aigc.cn/sites/3653.html" class="link-item" target="_blank">AIGC工具导航</a>
+                <a href="https://huggingface.co/spaces/deepseek-ai/Janus-Pro-7B" class="link-item" target="_blank">Hugging Face Janus</a>
+                <a href="https://app.sourcely.net/" class="link-item" target="_blank">Sourcely</a>
             </div>
         </div>
 
@@ -273,26 +412,6 @@
                 <a href="https://www.publons.com/" class="link-item" target="_blank">Publons审稿记录</a>
             </div>
         </div>
-        <!-- 院校资源平台 -->
-        <div class="category-card">
-            <h2 class="category-header">🏫 院校平台</h2>
-            <div class="link-group">
-                <a href="https://www.zju.edu.cn/" class="link-item" target="_blank">浙江大学官网</a>
-                <a href="http://www.grs.zju.edu.cn/" class="link-item" target="_blank">研究生院系统</a>
-                <a href="http://ms.zju.edu.cn/" class="link-item" target="_blank">软件服务平台</a>
-                <a href="http://www.cc98.org/" class="link-item" target="_blank">CC98论坛</a>
-                <a href="http://www.cmm.zju.edu.cn/" class="link-item" target="_blank">基础医学院</a>
-                <a href="http://www.ig.zju.edu.cn/" class="link-item" target="_blank">遗传研究所</a>
-                <a href="https://www.pku.edu.cn/" class="link-item" target="_blank">北京大学</a>
-                <a href="https://www.tsinghua.edu.cn/" class="link-item" target="_blank">清华大学</a>
-                <a href="https://www.fudan.edu.cn/" class="link-item" target="_blank">复旦大学</a>
-                <a href="https://www.sjtu.edu.cn/" class="link-item" target="_blank">上海交通大学</a>
-                <a href="https://www.yale.edu/" class="link-item" target="_blank">耶鲁大学</a>
-                <a href="https://www.harvard.edu/" class="link-item" target="_blank">哈佛大学</a>
-                <a href="https://www.mit.edu/" class="link-item" target="_blank">麻省理工</a>
-                <a href="https://www.stanford.edu/" class="link-item" target="_blank">斯坦福大学</a>
-            </div>
-        </div>
         <!-- 实用工具平台 -->
         <div class="category-card">
             <h2 class="category-header">⚙️ 实用工具</h2>
@@ -317,5 +436,6 @@
     <footer>
         <p>&copy; 2023 LHJ 学术导航系统. 为科研探索之路提供指引。</p>
     </footer>
+
 </body>
 </html>
