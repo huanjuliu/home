@@ -4,24 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LHJ 综合学术导航系统</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #2B3856;     /* 深海蓝主色 */
             --secondary: #4B6A88;    /* 科技蓝辅助色 */
             --accent: #F5A623;       /* 活力橙强调色 */
             --light: #F8F9FA;        /* 浅灰背景 */
+            --dark: #343a40;         /* 深色文字 */
+            --success: #28a745;      /* 成功绿色 */
+            --info: #17a2b8;         /* 信息蓝色 */
+            --warning: #ffc107;      /* 警告黄色 */
+            --danger: #dc3545;       /* 危险红色 */
             --radius: 12px;          /* 统一圆角 */
             --shadow: 0 4px 20px rgba(0,0,0,0.08);
+            --transition: all 0.3s ease-in-out;
         }
-
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
         body {
-            font-family: 'Segoe UI', system-ui, sans-serif;
+            font-family: 'Roboto', 'Segoe UI', system-ui, sans-serif;
             line-height: 1.6;
             background: var(--light);
+            color: var(--dark);
             margin: 0;
             overflow-x: hidden;
         }
-
         /* 导航栏优化 */
         .navbar {
             background: linear-gradient(135deg, var(--primary), var(--secondary));
@@ -31,7 +42,6 @@
             top: 0;
             z-index: 1000;
         }
-
         .nav-container {
             max-width: 1600px;
             margin: 0 auto;
@@ -39,7 +49,12 @@
             justify-content: space-between;
             align-items: center;
         }
-
+        .nav-container h1 {
+            color: white;
+            margin: 0;
+            font-size: 1.8rem;
+            font-weight: 500;
+        }
         /* 主内容区 */
         .main-grid {
             display: grid;
@@ -49,21 +64,29 @@
             max-width: 1600px;
             margin: 0 auto;
         }
-
         /* 分类卡片设计 */
         .category-card {
             background: white;
             border-radius: var(--radius);
             box-shadow: var(--shadow);
             padding: 1.8rem;
-            transition: transform 0.3s;
+            transition: var(--transition);
             position: relative;
+            border-top: 4px solid var(--accent);
         }
-
         .category-card:hover {
             transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
         }
-
+        .category-header {
+            color: var(--primary);
+            margin-top: 0;
+            margin-bottom: 1.2rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #eee;
+            font-size: 1.4rem;
+            font-weight: 500;
+        }
         /* 链接组样式优化 */
         .link-group {
             display: grid;
@@ -71,6 +94,21 @@
             max-height: 400px;
             overflow-y: auto;
             padding-right: 1rem;
+        }
+        /* 自定义滚动条 */
+        .link-group::-webkit-scrollbar {
+            width: 6px;
+        }
+        .link-group::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        .link-group::-webkit-scrollbar-thumb {
+            background: var(--secondary);
+            border-radius: 10px;
+        }
+        .link-group::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
         }
 
         .link-item {
@@ -81,152 +119,203 @@
             border-radius: 8px;
             text-decoration: none;
             color: var(--primary);
-            transition: all 0.2s;
+            transition: var(--transition);
             font-size: 0.95rem;
+            font-weight: 400;
         }
-
+        .link-item:hover {
+            background: var(--secondary);
+            color: white;
+            transform: translateX(5px);
+        }
+        .link-item::before {
+            content: "→";
+            margin-right: 10px;
+            opacity: 0;
+            transition: var(--transition);
+            color: var(--accent);
+        }
+        .link-item:hover::before {
+            opacity: 1;
+        }
         /* 响应式优化 */
         @media (max-width: 1200px) {
             .main-grid {
                 grid-template-columns: repeat(2, 1fr);
+                padding: 2rem;
             }
+        }
+        @media (max-width: 768px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+                padding: 1.5rem;
+            }
+            .navbar {
+                padding: 1rem 1.5rem;
+            }
+            .nav-container h1 {
+                font-size: 1.5rem;
+            }
+        }
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background-color: var(--primary);
+            color: white;
+            font-size: 0.9rem;
+            margin-top: 2rem;
+        }
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+        footer a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
     <nav class="navbar">
         <div class="nav-container">
-            <h1 style="color: white;margin:0">LHJ学术导航系统</h1>
+            <h1>🔬 LHJ 学术导航系统</h1>
         </div>
     </nav>
-
     <main class="main-grid">
+        <!-- 学术成果模块 -->
+        <div class="category-card">
+            <h2 class="category-header">🏆 学术成果</h2>
+            <div class="link-group">
+                <a href="https://orcid.org/0000-0002-3370-4296" class="link-item" target="_blank">ORCID Profile</a>
+                <a href="https://www.researchgate.net/profile/Huanju-Liu?ev=hdr_xprf" class="link-item" target="_blank">ResearchGate Profile</a>
+                <a href="https://scholar.google.com/citations?hl=en&user=OtZMZmYAAAAJ" class="link-item" target="_blank">Google Scholar</a>
+                <a href="https://pubmed.ncbi.nlm.nih.gov/?term=%28huanju+liu%29+AND+%28%28zhejiang+university%29OR+%28Naval+Medical+University%29%29&sort=date&size=200" class="link-item" target="_blank">PubMed Publications</a>
+            </div>
+        </div>
+
         <!-- 核心数据库模块 -->
         <div class="category-card">
             <h2 class="category-header">🔍 核心数据库</h2>
             <div class="link-group">
-                <a href="https://pubmed.ncbi.nlm.nih.gov/" class="link-item">PubMed</a>
-                <a href="https://www.ncbi.nlm.nih.gov/" class="link-item">NCBI</a>
-                <a href="https://www.rcsb.org/" class="link-item">PDB蛋白质数据库</a>
-                <a href="https://www.uniprot.org/" class="link-item">UniProt数据库</a>
-                <a href="https://www.ensembl.org/" class="link-item">Ensembl基因组</a>
-                <a href="https://www.ebi.ac.uk/ena" class="link-item">ENA测序数据库</a>
-                <a href="https://www.genome.jp/kegg/" class="link-item">KEGG通路数据库</a>
-                <a href="https://www.encodeproject.org/" class="link-item">ENCODE计划</a>
-                <a href="https://www.ncbi.nlm.nih.gov/geo/" class="link-item">GEO数据库</a>
-                <a href="https://www.cancer.gov/tcga" class="link-item">TCGA癌症基因组</a>
-                <a href="https://www.ebi.ac.uk/arrayexpress/" class="link-item">ArrayExpress</a>
-                <a href="https://www.genecards.org/" class="link-item">GeneCards</a>
-                <a href="https://www.genome.gov/" class="link-item">UCSC基因组浏览器</a>
-                <a href="https://www.omim.org/" class="link-item">OMIM遗传病数据库</a>
-                <a href="https://www.sanger.ac.uk/" class="link-item">Sanger研究所数据库</a>
+                <a href="https://pubmed.ncbi.nlm.nih.gov/" class="link-item" target="_blank">PubMed</a>
+                <a href="https://www.ncbi.nlm.nih.gov/" class="link-item" target="_blank">NCBI</a>
+                <a href="https://www.rcsb.org/" class="link-item" target="_blank">PDB蛋白质数据库</a>
+                <a href="https://www.uniprot.org/" class="link-item" target="_blank">UniProt数据库</a>
+                <a href="https://www.ensembl.org/" class="link-item" target="_blank">Ensembl基因组</a>
+                <a href="https://www.ebi.ac.uk/ena" class="link-item" target="_blank">ENA测序数据库</a>
+                <a href="https://www.genome.jp/kegg/" class="link-item" target="_blank">KEGG通路数据库</a>
+                <a href="https://www.encodeproject.org/" class="link-item" target="_blank">ENCODE计划</a>
+                <a href="https://www.ncbi.nlm.nih.gov/geo/" class="link-item" target="_blank">GEO数据库</a>
+                <a href="https://www.cancer.gov/tcga" class="link-item" target="_blank">TCGA癌症基因组</a>
+                <a href="https://www.ebi.ac.uk/arrayexpress/" class="link-item" target="_blank">ArrayExpress</a>
+                <a href="https://www.genecards.org/" class="link-item" target="_blank">GeneCards</a>
+                <a href="https://www.genome.gov/" class="link-item" target="_blank">UCSC基因组浏览器</a>
+                <a href="https://www.omim.org/" class="link-item" target="_blank">OMIM遗传病数据库</a>
+                <a href="https://www.sanger.ac.uk/" class="link-item" target="_blank">Sanger研究所数据库</a>
             </div>
         </div>
-
         <!-- 生物信息学工具 -->
         <div class="category-card">
             <h2 class="category-header">🧬 生物信息工具</h2>
             <div class="link-group">
-                <a href="https://www.bioconductor.org/" class="link-item">Bioconductor</a>
-                <a href="https://cytoscape.org/" class="link-item">Cytoscape网络分析</a>
-                <a href="https://www.qiagen.com/" class="link-item">QIAGEN分析套件</a>
-                <a href="https://www.dnastar.com/" class="link-item">DNASTAR Lasergene</a>
-                <a href="https://www.rosettacommons.org/" class="link-item">Rosetta分子建模</a>
-                <a href="https://www.r-project.org/" class="link-item">R语言分析平台</a>
-                <a href="https://www.python.org/" class="link-item">Python生物信息库</a>
-                <a href="https://www.jalview.org/" class="link-item">Jalview序列分析</a>
-                <a href="https://www.gsea-msigdb.org/" class="link-item">GSEA富集分析</a>
-                <a href="https://www.metaboanalyst.ca/" class="link-item">MetaboAnalyst代谢组学</a>
-                <a href="https://www.bioinformatics.nl/" class="link-item">PRIDE蛋白质组数据库</a>
-                <a href="https://www.ebi.ac.uk/Tools/webservices/" class="link-item">EBI工具集</a>
-                <a href="https://www.broadinstitute.org/" class="link-item">Broad研究所工具</a>
-                <a href="https://www.ebi.ac.uk/interpro/" class="link-item">InterPro蛋白结构域</a>
+                <a href="https://www.bioconductor.org/" class="link-item" target="_blank">Bioconductor</a>
+                <a href="https://cytoscape.org/" class="link-item" target="_blank">Cytoscape网络分析</a>
+                <a href="https://www.qiagen.com/" class="link-item" target="_blank">QIAGEN分析套件</a>
+                <a href="https://www.dnastar.com/" class="link-item" target="_blank">DNASTAR Lasergene</a>
+                <a href="https://www.rosettacommons.org/" class="link-item" target="_blank">Rosetta分子建模</a>
+                <a href="https://www.r-project.org/" class="link-item" target="_blank">R语言分析平台</a>
+                <a href="https://www.python.org/" class="link-item" target="_blank">Python生物信息库</a>
+                <a href="https://www.jalview.org/" class="link-item" target="_blank">Jalview序列分析</a>
+                <a href="https://www.gsea-msigdb.org/" class="link-item" target="_blank">GSEA富集分析</a>
+                <a href="https://www.metaboanalyst.ca/" class="link-item" target="_blank">MetaboAnalyst代谢组学</a>
+                <a href="https://www.bioinformatics.nl/" class="link-item" target="_blank">PRIDE蛋白质组数据库</a>
+                <a href="https://www.ebi.ac.uk/Tools/webservices/" class="link-item" target="_blank">EBI工具集</a>
+                <a href="https://www.broadinstitute.org/" class="link-item" target="_blank">Broad研究所工具</a>
+                <a href="https://www.ebi.ac.uk/interpro/" class="link-item" target="_blank">InterPro蛋白结构域</a>
             </div>
         </div>
-
         <!-- 实验技术平台 -->
         <div class="category-card">
             <h2 class="category-header">🔬 实验技术</h2>
             <div class="link-group">
-                <a href="https://www.addgene.org/" class="link-item">Addgene质粒库</a>
-                <a href="https://www.bio-rad.com/" class="link-item">Bio-Rad仪器平台</a>
-                <a href="https://www.thermofisher.com/" class="link-item">Thermo实验方案</a>
-                <a href="https://www.sigmaaldrich.com/" class="link-item">Sigma实验试剂</a>
-                <a href="https://www.abcam.com/" class="link-item">Abcam抗体平台</a>
-                <a href="https://www.milliporesigma.com/" class="link-item">Millipore过滤系统</a>
-                <a href="https://www.qiagen.com/" class="link-item">QIAGEN核酸纯化</a>
-                <a href="https://www.agilent.com/" class="link-item">Agilent分析仪器</a>
-                <a href="https://www.illumina.com/" class="link-item">Illumina测序平台</a>
-                <a href="https://www.10xgenomics.com/" class="link-item">10x Genomics单细胞平台</a>
-                <a href="https://www.novogene.com/" class="link-item">Novogene测序服务</a>
-                <a href="https://www.bgi.com/" class="link-item">华大基因服务平台</a>
-                <a href="https://www.sanger.ac.uk/" class="link-item">Sanger测序服务</a>
-                <a href="https://www.zeiss.com/" class="link-item">ZEISS显微镜平台</a>
+                <a href="https://www.addgene.org/" class="link-item" target="_blank">Addgene质粒库</a>
+                <a href="https://www.bio-rad.com/" class="link-item" target="_blank">Bio-Rad仪器平台</a>
+                <a href="https://www.thermofisher.com/" class="link-item" target="_blank">Thermo实验方案</a>
+                <a href="https://www.sigmaaldrich.com/" class="link-item" target="_blank">Sigma实验试剂</a>
+                <a href="https://www.abcam.com/" class="link-item" target="_blank">Abcam抗体平台</a>
+                <a href="https://www.milliporesigma.com/" class="link-item" target="_blank">Millipore过滤系统</a>
+                <a href="https://www.qiagen.com/" class="link-item" target="_blank">QIAGEN核酸纯化</a>
+                <a href="https://www.agilent.com/" class="link-item" target="_blank">Agilent分析仪器</a>
+                <a href="https://www.illumina.com/" class="link-item" target="_blank">Illumina测序平台</a>
+                <a href="https://www.10xgenomics.com/" class="link-item" target="_blank">10x Genomics单细胞平台</a>
+                <a href="https://www.novogene.com/" class="link-item" target="_blank">Novogene测序服务</a>
+                <a href="https://www.bgi.com/" class="link-item" target="_blank">华大基因服务平台</a>
+                <a href="https://www.sanger.ac.uk/" class="link-item" target="_blank">Sanger测序服务</a>
+                <a href="https://www.zeiss.com/" class="link-item" target="_blank">ZEISS显微镜平台</a>
             </div>
         </div>
-
         <!-- 文献管理与发表 -->
         <div class="category-card">
             <h2 class="category-header">📑 文献管理</h2>
             <div class="link-group">
-                <a href="https://www.endnote.com/" class="link-item">EndNote文献管理</a>
-                <a href="https://www.zotero.org/" class="link-item">Zotero开源管理</a>
-                <a href="https://www.mendeley.com/" class="link-item">Mendeley阅读器</a>
-                <a href="https://www.crossref.org/" class="link-item">Crossref DOI系统</a>
-                <a href="https://www.editorialmanager.com/" class="link-item">EditorialManager投稿</a>
-                <a href="https://www.overleaf.com/" class="link-item">Overleaf在线LaTeX</a>
-                <a href="https://www.grammarly.com/" class="link-item">Grammarly润色</a>
-                <a href="https://www.aje.com/" class="link-item">AJE语言编辑</a>
-                <a href="https://www.edanz.com/" class="link-item">Edanz专业润色</a>
-                <a href="https://www.jmir.org/" class="link-item">JMIR开放获取期刊</a>
-                <a href="https://www.biorxiv.org/" class="link-item">BioRxiv预印本</a>
-                <a href="https://www.medrxiv.org/" class="link-item">MedRxiv预印本</a>
-                <a href="https://www.researchsquare.com/" class="link-item">ResearchSquare预印</a>
-                <a href="https://www.publons.com/" class="link-item">Publons审稿记录</a>
+                <a href="https://www.endnote.com/" class="link-item" target="_blank">EndNote文献管理</a>
+                <a href="https://www.zotero.org/" class="link-item" target="_blank">Zotero开源管理</a>
+                <a href="https://www.mendeley.com/" class="link-item" target="_blank">Mendeley阅读器</a>
+                <a href="https://www.crossref.org/" class="link-item" target="_blank">Crossref DOI系统</a>
+                <a href="https://www.editorialmanager.com/" class="link-item" target="_blank">EditorialManager投稿</a>
+                <a href="https://www.overleaf.com/" class="link-item" target="_blank">Overleaf在线LaTeX</a>
+                <a href="https://www.grammarly.com/" class="link-item" target="_blank">Grammarly润色</a>
+                <a href="https://www.aje.com/" class="link-item" target="_blank">AJE语言编辑</a>
+                <a href="https://www.edanz.com/" class="link-item" target="_blank">Edanz专业润色</a>
+                <a href="https://www.jmir.org/" class="link-item" target="_blank">JMIR开放获取期刊</a>
+                <a href="https://www.biorxiv.org/" class="link-item" target="_blank">BioRxiv预印本</a>
+                <a href="https://www.medrxiv.org/" class="link-item" target="_blank">MedRxiv预印本</a>
+                <a href="https://www.researchsquare.com/" class="link-item" target="_blank">ResearchSquare预印</a>
+                <a href="https://www.publons.com/" class="link-item" target="_blank">Publons审稿记录</a>
             </div>
         </div>
-
         <!-- 院校资源平台 -->
         <div class="category-card">
             <h2 class="category-header">🏫 院校平台</h2>
             <div class="link-group">
-                <a href="https://www.zju.edu.cn/" class="link-item">浙江大学官网</a>
-                <a href="http://www.grs.zju.edu.cn/" class="link-item">研究生院系统</a>
-                <a href="http://ms.zju.edu.cn/" class="link-item">软件服务平台</a>
-                <a href="http://www.cc98.org/" class="link-item">CC98论坛</a>
-                <a href="http://www.cmm.zju.edu.cn/" class="link-item">基础医学院</a>
-                <a href="http://www.ig.zju.edu.cn/" class="link-item">遗传研究所</a>
-                <a href="https://www.pku.edu.cn/" class="link-item">北京大学</a>
-                <a href="https://www.tsinghua.edu.cn/" class="link-item">清华大学</a>
-                <a href="https://www.fudan.edu.cn/" class="link-item">复旦大学</a>
-                <a href="https://www.sjtu.edu.cn/" class="link-item">上海交通大学</a>
-                <a href="https://www.yale.edu/" class="link-item">耶鲁大学</a>
-                <a href="https://www.harvard.edu/" class="link-item">哈佛大学</a>
-                <a href="https://www.mit.edu/" class="link-item">麻省理工</a>
-                <a href="https://www.stanford.edu/" class="link-item">斯坦福大学</a>
+                <a href="https://www.zju.edu.cn/" class="link-item" target="_blank">浙江大学官网</a>
+                <a href="http://www.grs.zju.edu.cn/" class="link-item" target="_blank">研究生院系统</a>
+                <a href="http://ms.zju.edu.cn/" class="link-item" target="_blank">软件服务平台</a>
+                <a href="http://www.cc98.org/" class="link-item" target="_blank">CC98论坛</a>
+                <a href="http://www.cmm.zju.edu.cn/" class="link-item" target="_blank">基础医学院</a>
+                <a href="http://www.ig.zju.edu.cn/" class="link-item" target="_blank">遗传研究所</a>
+                <a href="https://www.pku.edu.cn/" class="link-item" target="_blank">北京大学</a>
+                <a href="https://www.tsinghua.edu.cn/" class="link-item" target="_blank">清华大学</a>
+                <a href="https://www.fudan.edu.cn/" class="link-item" target="_blank">复旦大学</a>
+                <a href="https://www.sjtu.edu.cn/" class="link-item" target="_blank">上海交通大学</a>
+                <a href="https://www.yale.edu/" class="link-item" target="_blank">耶鲁大学</a>
+                <a href="https://www.harvard.edu/" class="link-item" target="_blank">哈佛大学</a>
+                <a href="https://www.mit.edu/" class="link-item" target="_blank">麻省理工</a>
+                <a href="https://www.stanford.edu/" class="link-item" target="_blank">斯坦福大学</a>
             </div>
         </div>
-
         <!-- 实用工具平台 -->
         <div class="category-card">
             <h2 class="category-header">⚙️ 实用工具</h2>
             <div class="link-group">
-                <a href="https://www.graphpad.com/" class="link-item">GraphPad Prism</a>
-                <a href="https://www.imagej.net/" class="link-item">ImageJ图像分析</a>
-                <a href="https://www.snapgene.com/" class="link-item">SnapGene分子克隆</a>
-                <a href="https://www.benchling.com/" class="link-item">Benchling实验记录</a>
-                <a href="https://www.labarchives.com/" class="link-item">LabArchives电子记录</a>
-                <a href="https://www.molbiotools.com/" class="link-item">Molbiotools工具包</a>
-                <a href="https://www.synthego.com/" class="link-item">Synthego基因编辑</a>
-                <a href="https://www.biorender.com/" class="link-item">BioRender科研绘图</a>
-                <a href="https://www.chemdraw.com/" class="link-item">ChemDraw化学结构</a>
-                <a href="https://www.flowjo.com/" class="link-item">FlowJo流式分析</a>
-                <a href="https://www.fijiviewer.com/" class="link-item">Fiji图像处理</a>
-                <a href="https://www.3ds.com/" class="link-item">Discovery Studio建模</a>
-                <a href="https://www.pymol.org/" class="link-item">PyMOL分子可视化</a>
-                <a href="https://www.chimerax.org/" class="link-item">ChimeraX结构解析</a>
+                <a href="https://www.graphpad.com/" class="link-item" target="_blank">GraphPad Prism</a>
+                <a href="https://www.imagej.net/" class="link-item" target="_blank">ImageJ图像分析</a>
+                <a href="https://www.snapgene.com/" class="link-item" target="_blank">SnapGene分子克隆</a>
+                <a href="https://www.benchling.com/" class="link-item" target="_blank">Benchling实验记录</a>
+                <a href="https://www.labarchives.com/" class="link-item" target="_blank">LabArchives电子记录</a>
+                <a href="https://www.molbiotools.com/" class="link-item" target="_blank">Molbiotools工具包</a>
+                <a href="https://www.synthego.com/" class="link-item" target="_blank">Synthego基因编辑</a>
+                <a href="https://www.biorender.com/" class="link-item" target="_blank">BioRender科研绘图</a>
+                <a href="https://www.chemdraw.com/" class="link-item" target="_blank">ChemDraw化学结构</a>
+                <a href="https://www.flowjo.com/" class="link-item" target="_blank">FlowJo流式分析</a>
+                <a href="https://www.fijiviewer.com/" class="link-item" target="_blank">Fiji图像处理</a>
+                <a href="https://www.3ds.com/" class="link-item" target="_blank">Discovery Studio建模</a>
+                <a href="https://www.pymol.org/" class="link-item" target="_blank">PyMOL分子可视化</a>
+                <a href="https://www.chimerax.org/" class="link-item" target="_blank">ChimeraX结构解析</a>
             </div>
         </div>
     </main>
+    <footer>
+        <p>&copy; 2023 LHJ 学术导航系统. 为科研探索之路提供指引。</p>
+    </footer>
 </body>
 </html>
